@@ -1,0 +1,273 @@
+﻿@model BuscandoMiTrago.Models.IndexViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+@Html.HiddenFor(m => m.BebidasPreferidas, new { id="BebidasPreferidas"})
+<div class="row pb-3">
+    <div class="col text-center">
+        <img src="images/cocktail_left.png" class="img-fluid" />
+    </div>
+    <div class="col-5 text-center">
+        <h1 class="font-color-general">Welcome to TheCocktailDB</h1>
+        <p class="font-color-general">
+            An open, crowd-sourced database of drinks and cocktails from around the world.
+            We also offer a free JSON API for anyone wanting to use it.
+            If you like the site, please consider supporting us on Patreon by clicking the link
+        </p>
+    </div>
+    <div class="col text-center">
+        <img src="images/cocktail_right.png" class="img-fluid" />
+    </div>
+</div>
+
+<div class="row pb-3">
+    <div class="input-group col-5">
+        <input class="form-control py-2 border-right-0 border pb-0" type="text" id="idTxtBebida" placeholder="Serach for a cocktail">
+        <span class="input-group-append">
+            <button class="btn btn-outline-secondary border-left-0 border pb-2" type="button" onclick="ConsultarBebidas()">
+                <i class="bi bi-search"></i>
+            </button>
+        </span>
+    </div>
+</div>
+
+<div id="Cards" class="row justify-content-center gy-3">
+</div>
+
+<div id="CardDetail" class="row justify-content-center gy-3">
+</div>
+
+<!-- Modal cuadro de dialogo -->
+<div id="modalLoading" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-body pb-2" style="padding-bottom: 5rem;">
+                <div class="row justify-content-center align-items-center">
+                    <img height="200" src="~/images/loading.gif" />
+                </div>
+                <div class="row justify-content-center align-items-center item-body">
+                    Cargando...
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+
+        function ConsultarBebidas() {
+            $("#modalLoading").modal({
+                backdrop: 'static', keyboard: false
+            }, 'show');
+            $("#modalLoading").attr("style", "display:block")
+
+            var input = $("#idTxtBebida").val();
+            if (input.length) {
+
+                $.ajax({
+                    url: '@Url.Action("GetBebidas", "Home")',
+                    type: 'GET',
+                    data: 'bebida=' + $("#idTxtBebida").val(),
+                    success: function (objMsj) {
+                        if (objMsj.drinks != null) {
+                            $("#modalLoading").attr("style", "display:none")
+                            $("#Cards").attr("style", "display")
+                            $("#CardDetail").attr("style", "display:none")
+                            var row = "";
+                            $.each(objMsj.drinks, function (index, item) {
+                                //row += "<tr><td><input type='checkbox'id='" + item.Id + "' name='chooseRecipient' class='my_chkBox' /></td><td>" + item.Name + "</td><td>" + item.MobileNumber + "</td></tr>";
+                                row += '<div  class="col-12 col-sm-12 col-md-4 col-lg-3 col-xl-3">' +
+                                    '<div class="card h-100" "style ="width: 18rem;">' +
+                                    '<div class="form-check">' +
+                                    '<input class="form-check-input" type="checkbox" value ="" id="flexCheckDefault"  onchange="addOrRemove(' + item.idDrink + ')">' +
+                                    '<label class="form-check-label" for= "flexCheckDefault">' +
+                                    'Add to favorites' +
+                                    '</label>' +
+                                    '</div>' +
+                                    "<img src=" + "'" + item.strDrinkThumb + "'" + " " + "class=" + "'" + "card-img-top" + "'" + " " + "alt =" + "'" + "..." + "'" + ">" +
+                                    '<div class="card-body">' +
+                                    '<h5 class="card-title">' + item.strDrink + '</h5>' +
+                                    '<p class="card-text">' + item.strInstructions + '</p>' +
+                                    '<input type="button" onclick="ConsultarDetalle(' + item.idDrink + ')"' + 'class="btn btn-primary" value="Detail">' +
+                                    "</div>" +
+                                    "</div>" +
+                                    "</div>"
+                            });
+                            $("#Cards").html(row);
+                        }
+                        else {
+
+                        }
+                    },
+                    error: function (jqXHR, textStatus, error) {
+                    }
+                });
+
+            } else {
+                $("#modalLoading").attr("style", "display:none")
+                alert("Favor de ingresar el nombre de alguna bebida");
+            }
+        }
+
+        function ConsultarDetalle(id) {
+            $("#modalLoading").modal({
+                backdrop: 'static', keyboard: false
+            }, 'show');
+            $("#modalLoading").attr("style", "display:block")
+
+            $.ajax({
+                url: '@Url.Action("GetDetalleBebida", "Home")',
+                type: 'GET',
+                data: 'id=' + id,
+                success: function (objMsj) {
+                    if (objMsj.drinks != null) {
+                        $("#modalLoading").attr("style", "display:none")
+                        $("#Cards").attr("style", "display:none")
+                        $("#CardDetail").attr("style", "display")
+
+                        var row = "";
+                        row = '<div class="card" style = "width: 18rem;">' +
+                            '<img src="' + objMsj.drinks[0].strDrinkThumb + '" class="card-img-top" alt ="...">' +
+                            '<div class="card-body">' +
+                            '<h5 class="card-title">' + objMsj.drinks[0].strDrink + '</h5>' +
+                            '<p class="card-text">' + objMsj.drinks[0].strInstructions + '</p>' +
+                            '</div>' +
+                            '<ul class="list-group list-group-flush">' +
+                            '<li class="list-group-item">' + objMsj.drinks[0].strMeasure1 + objMsj.drinks[0].strIngredient1 + '</li>' +
+                            '<li class="list-group-item">' + objMsj.drinks[0].strIngredient2 + '</li>' +
+                            '<li class="list-group-item">' + objMsj.drinks[0].strIngredient3 + '</li>' +
+                            '<li class="list-group-item">' + objMsj.drinks[0].strIngredient4 + '</li>' +
+                            '<li class="list-group-item">' + objMsj.drinks[0].strIngredient5 + '</li>' +
+                            '<li class="list-group-item">' + objMsj.drinks[0].strIngredient6 + '</li>' +
+                            '</ul>' +
+                            '<div class="card-body">' +
+                            '<a href="#" class="card-link" > Card link </a>' +
+                            '<a href = "#" class="card-link" > Another link </a>' +
+                            '</div>' +
+                            '</div>'
+
+                        $("#CardDetail").html(row);
+                    }
+                    else {
+                        $("#modalLoading").attr("style", "display:none")
+                        alert("No encontramos ingredientes para esa bebida!");
+                    }
+                },
+                error: function (jqXHR, textStatus, error) {
+                }
+            });
+        }
+
+        function ConsultarDetalle(id) {
+            $("#modalLoading").modal({
+                backdrop: 'static', keyboard: false
+            }, 'show');
+            $("#modalLoading").attr("style", "display:block")
+
+            $.ajax({
+                url: '@Url.Action("GetDetalleBebida", "Home")',
+                type: 'GET',
+                data: 'id=' + id,
+                success: function (objMsj) {
+                    if (objMsj.drinks != null) {
+                        $("#modalLoading").attr("style", "display:none")
+                        $("#Cards").attr("style", "display:none")
+                        $("#CardDetail").attr("style", "display")
+
+                        var row = "";
+                        row = '<div class="card" style = "width: 18rem;">' +
+                            '<img src="' + objMsj.drinks[0].strDrinkThumb + '" class="card-img-top" alt ="...">' +
+                            '<div class="card-body">' +
+                            '<h5 class="card-title">' + objMsj.drinks[0].strDrink + '</h5>' +
+                            '<p class="card-text">' + objMsj.drinks[0].strInstructions + '</p>' +
+                            '</div>' +
+                            '<ul class="list-group list-group-flush">' +
+                            '<li class="list-group-item">' + objMsj.drinks[0].strMeasure1 + objMsj.drinks[0].strIngredient1 + '</li>' +
+                            '<li class="list-group-item">' + objMsj.drinks[0].strIngredient2 + '</li>' +
+                            '<li class="list-group-item">' + objMsj.drinks[0].strIngredient3 + '</li>' +
+                            '<li class="list-group-item">' + objMsj.drinks[0].strIngredient4 + '</li>' +
+                            '<li class="list-group-item">' + objMsj.drinks[0].strIngredient5 + '</li>' +
+                            '<li class="list-group-item">' + objMsj.drinks[0].strIngredient6 + '</li>' +
+                            '</ul>' +
+                            '<div class="card-body">' +
+                            '<a href="#" class="card-link" > Card link </a>' +
+                            '<a href = "#" class="card-link" > Another link </a>' +
+                            '</div>' +
+                            '</div>'
+
+                        $("#CardDetail").html(row);
+                    }
+                    else {
+                        $("#modalLoading").attr("style", "display:none")
+                        alert("No encontramos ingredientes para esa bebida!");
+                    }
+                },
+                error: function (jqXHR, textStatus, error) {
+                }
+            });
+        }
+
+        function addOrRemove(id) {
+            var formData = new FormData();
+            formData.append("id", id);
+
+            $.ajax({
+                url: '@Url.Action("ToFavorites", "Home")',
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                async: true
+            });
+        }
+
+        function getFavoritas() {
+            $("#modalLoading").modal({
+                backdrop: 'static', keyboard: false
+            }, 'show');
+            $("#modalLoading").attr("style", "display:block")
+
+            $.ajax({
+                url: '@Url.Action("GetFavorites", "Home")',
+                type: 'GET',
+                data: 'id=' + '1241',
+                success: function (objMsj) {
+                    if (objMsj.drinks.length != 0) {
+                        $("#modalLoading").attr("style", "display:none")
+                        $("#Cards").attr("style", "display")
+                        $("#CardDetail").attr("style", "display:none")
+                        var row = "";
+                        $.each(objMsj.drinks, function (index, item) {
+                            //row += "<tr><td><input type='checkbox'id='" + item.Id + "' name='chooseRecipient' class='my_chkBox' /></td><td>" + item.Name + "</td><td>" + item.MobileNumber + "</td></tr>";
+                            row += '<div  class="col-12 col-sm-12 col-md-4 col-lg-3 col-xl-3">' +
+                                '<div class="card h-100" "style ="width: 18rem;">' +
+                                '<div class="form-check">' +
+                                '<input class="form-check-input" type="checkbox" value ="" id="flexCheckDefault"  onchange="addOrRemove(' + item.idDrink + ')">' +
+                                '<label class="form-check-label" for= "flexCheckDefault">' +
+                                'Remove from favorites' +
+                                '</label>' +
+                                '</div>' +
+                                "<img src=" + "'" + item.strDrinkThumb + "'" + " " + "class=" + "'" + "card-img-top" + "'" + " " + "alt =" + "'" + "..." + "'" + ">" +
+                                '<div class="card-body">' +
+                                '<h5 class="card-title">' + item.strDrink + '</h5>' +
+                                '<p class="card-text">' + item.strInstructions + '</p>' +
+                                '<input type="button" onclick="ConsultarDetalle(' + item.idDrink + ')"' + 'class="btn btn-primary" value="Detail">' +
+                                "</div>" +
+                                "</div>" +
+                                "</div>"
+                        });
+                        $("#Cards").html(row);
+                    }
+                    else {
+                        $("#modalLoading").attr("style", "display:none")
+                        alert("No ha seleccionado aún sus bebidas favoritas!");
+                    }
+                },
+                error: function (jqXHR, textStatus, error) {
+                }
+            });
+        }
+
+    </script>
+    }

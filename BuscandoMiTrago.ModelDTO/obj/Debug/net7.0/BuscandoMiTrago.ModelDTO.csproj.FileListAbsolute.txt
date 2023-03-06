@@ -1,0 +1,12 @@
+C:\Users\user\source\repos\BuscandoMiTrago\BuscandoMiTrago.ModelDTO\bin\Debug\net7.0\BuscandoMiTrago.ModelDTO.deps.json
+C:\Users\user\source\repos\BuscandoMiTrago\BuscandoMiTrago.ModelDTO\bin\Debug\net7.0\BuscandoMiTrago.ModelDTO.dll
+C:\Users\user\source\repos\BuscandoMiTrago\BuscandoMiTrago.ModelDTO\bin\Debug\net7.0\BuscandoMiTrago.ModelDTO.pdb
+C:\Users\user\source\repos\BuscandoMiTrago\BuscandoMiTrago.ModelDTO\obj\Debug\net7.0\BuscandoMiTrago.ModelDTO.csproj.AssemblyReference.cache
+C:\Users\user\source\repos\BuscandoMiTrago\BuscandoMiTrago.ModelDTO\obj\Debug\net7.0\BuscandoMiTrago.ModelDTO.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\user\source\repos\BuscandoMiTrago\BuscandoMiTrago.ModelDTO\obj\Debug\net7.0\BuscandoMiTrago.ModelDTO.AssemblyInfoInputs.cache
+C:\Users\user\source\repos\BuscandoMiTrago\BuscandoMiTrago.ModelDTO\obj\Debug\net7.0\BuscandoMiTrago.ModelDTO.AssemblyInfo.cs
+C:\Users\user\source\repos\BuscandoMiTrago\BuscandoMiTrago.ModelDTO\obj\Debug\net7.0\BuscandoMiTrago.ModelDTO.csproj.CoreCompileInputs.cache
+C:\Users\user\source\repos\BuscandoMiTrago\BuscandoMiTrago.ModelDTO\obj\Debug\net7.0\BuscandoMiTrago.ModelDTO.dll
+C:\Users\user\source\repos\BuscandoMiTrago\BuscandoMiTrago.ModelDTO\obj\Debug\net7.0\refint\BuscandoMiTrago.ModelDTO.dll
+C:\Users\user\source\repos\BuscandoMiTrago\BuscandoMiTrago.ModelDTO\obj\Debug\net7.0\BuscandoMiTrago.ModelDTO.pdb
+C:\Users\user\source\repos\BuscandoMiTrago\BuscandoMiTrago.ModelDTO\obj\Debug\net7.0\ref\BuscandoMiTrago.ModelDTO.dll

@@ -1,0 +1,12 @@
+C:\Users\user\source\repos\BuscandoMiTrago\BuscandoMiTrago.Model\bin\Debug\net7.0\BuscandoMiTrago.Model.deps.json
+C:\Users\user\source\repos\BuscandoMiTrago\BuscandoMiTrago.Model\bin\Debug\net7.0\BuscandoMiTrago.Model.dll
+C:\Users\user\source\repos\BuscandoMiTrago\BuscandoMiTrago.Model\bin\Debug\net7.0\BuscandoMiTrago.Model.pdb
+C:\Users\user\source\repos\BuscandoMiTrago\BuscandoMiTrago.Model\obj\Debug\net7.0\BuscandoMiTrago.Model.csproj.AssemblyReference.cache
+C:\Users\user\source\repos\BuscandoMiTrago\BuscandoMiTrago.Model\obj\Debug\net7.0\BuscandoMiTrago.Model.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\user\source\repos\BuscandoMiTrago\BuscandoMiTrago.Model\obj\Debug\net7.0\BuscandoMiTrago.Model.AssemblyInfoInputs.cache
+C:\Users\user\source\repos\BuscandoMiTrago\BuscandoMiTrago.Model\obj\Debug\net7.0\BuscandoMiTrago.Model.AssemblyInfo.cs
+C:\Users\user\source\repos\BuscandoMiTrago\BuscandoMiTrago.Model\obj\Debug\net7.0\BuscandoMiTrago.Model.csproj.CoreCompileInputs.cache
+C:\Users\user\source\repos\BuscandoMiTrago\BuscandoMiTrago.Model\obj\Debug\net7.0\BuscandoMiTrago.Model.dll
+C:\Users\user\source\repos\BuscandoMiTrago\BuscandoMiTrago.Model\obj\Debug\net7.0\refint\BuscandoMiTrago.Model.dll
+C:\Users\user\source\repos\BuscandoMiTrago\BuscandoMiTrago.Model\obj\Debug\net7.0\BuscandoMiTrago.Model.pdb
+C:\Users\user\source\repos\BuscandoMiTrago\BuscandoMiTrago.Model\obj\Debug\net7.0\ref\BuscandoMiTrago.Model.dll

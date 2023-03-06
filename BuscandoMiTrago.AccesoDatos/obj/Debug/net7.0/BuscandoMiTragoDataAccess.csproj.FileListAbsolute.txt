@@ -1,0 +1,12 @@
+C:\Users\user\source\repos\BuscandoMiTrago\BuscandoMiTragoDataAccess\bin\Debug\net7.0\BuscandoMiTragoDataAccess.deps.json
+C:\Users\user\source\repos\BuscandoMiTrago\BuscandoMiTragoDataAccess\bin\Debug\net7.0\BuscandoMiTragoDataAccess.dll
+C:\Users\user\source\repos\BuscandoMiTrago\BuscandoMiTragoDataAccess\bin\Debug\net7.0\BuscandoMiTragoDataAccess.pdb
+C:\Users\user\source\repos\BuscandoMiTrago\BuscandoMiTragoDataAccess\obj\Debug\net7.0\BuscandoMiTragoDataAccess.csproj.AssemblyReference.cache
+C:\Users\user\source\repos\BuscandoMiTrago\BuscandoMiTragoDataAccess\obj\Debug\net7.0\BuscandoMiTragoDataAccess.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\user\source\repos\BuscandoMiTrago\BuscandoMiTragoDataAccess\obj\Debug\net7.0\BuscandoMiTragoDataAccess.AssemblyInfoInputs.cache
+C:\Users\user\source\repos\BuscandoMiTrago\BuscandoMiTragoDataAccess\obj\Debug\net7.0\BuscandoMiTragoDataAccess.AssemblyInfo.cs
+C:\Users\user\source\repos\BuscandoMiTrago\BuscandoMiTragoDataAccess\obj\Debug\net7.0\BuscandoMiTragoDataAccess.csproj.CoreCompileInputs.cache
+C:\Users\user\source\repos\BuscandoMiTrago\BuscandoMiTragoDataAccess\obj\Debug\net7.0\BuscandoMiTragoDataAccess.dll
+C:\Users\user\source\repos\BuscandoMiTrago\BuscandoMiTragoDataAccess\obj\Debug\net7.0\refint\BuscandoMiTragoDataAccess.dll
+C:\Users\user\source\repos\BuscandoMiTrago\BuscandoMiTragoDataAccess\obj\Debug\net7.0\BuscandoMiTragoDataAccess.pdb
+C:\Users\user\source\repos\BuscandoMiTrago\BuscandoMiTragoDataAccess\obj\Debug\net7.0\ref\BuscandoMiTragoDataAccess.dll
