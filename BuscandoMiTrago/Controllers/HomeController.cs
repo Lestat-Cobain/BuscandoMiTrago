@@ -10,6 +10,7 @@ using BuscandoMiTragoDataAccess.Models;
 using Newtonsoft.Json;
 using BuscandoMiTrago.Model;
 using System.Linq;
+using BuscandoMiTrago.Utilidades;
 
 namespace BuscandoMiTrago.Controllers
 {
@@ -72,21 +73,8 @@ namespace BuscandoMiTrago.Controllers
         [HttpPost]
         public async Task<IActionResult> ToFavorites(string id)
         {
-            var bebida = _contenedorTrabajo.Bebida.GetFirtsOrDefault(x => x.IdBebidas == id);
-            if (bebida == null)
-            {
-                proSolicitudBebidas model = new proSolicitudBebidas();
-                model.IdSolicitud = 1241;
-                model.IdBebidas = id;
-                _contenedorTrabajo.Bebida.Add(model);
-                _contenedorTrabajo.Save();
-            }
-            else
-            {
-                _contenedorTrabajo.Bebida.Remove(bebida);
-                _contenedorTrabajo.Save();
-            }
-            return Ok();
+            ModelResponse response = _contenedorTrabajo.Bebida.EditarFavoritos(id);
+            return Ok(response);
         }
 
         [HttpGet]

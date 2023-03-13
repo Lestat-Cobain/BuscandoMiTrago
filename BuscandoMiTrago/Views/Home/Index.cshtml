@@ -70,7 +70,7 @@
                     type: 'GET',
                     data: 'bebida=' + $("#idTxtBebida").val(),
                     success: function (objMsj) {
-                        if (objMsj.drinks != null) {
+                        if (objMsj != null) {
                             $("#modalLoading").attr("style", "display:none")
                             $("#Cards").attr("style", "display")
                             $("#CardDetail").attr("style", "display:none")
@@ -97,6 +97,8 @@
                             $("#Cards").html(row);
                         }
                         else {
+                            $("#modalLoading").attr("style", "display:none")
+                            alert("Bebida no encontrada, favor de intentar con el nombre de un ingrediente!");
 
                         }
                     },
