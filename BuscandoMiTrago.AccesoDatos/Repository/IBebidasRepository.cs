@@ -1,4 +1,5 @@
-﻿using BuscandoMiTrago.Model;
+﻿using BuscandoMiTrago.AccesoDatos.Models;
+using BuscandoMiTrago.Model;
 using BuscandoMiTrago.Utilidades;
 using System;
 using System.Collections.Generic;
@@ -11,5 +12,6 @@ namespace BuscandoMiTrago.AccesoDatos.Repository
     public interface IBebidasRepository:IRepository<proSolicitudBebidas>
     {
         ModelResponse EditarFavoritos(string id);
+        ModelResponse ObtenerBebidas();
     }
 }

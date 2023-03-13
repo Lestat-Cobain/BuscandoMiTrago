@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BuscandoMiTragoDataAccess.Models
+namespace BuscandoMiTrago.AccesoDatos.Models
 {
     public class DrinksModel
     {

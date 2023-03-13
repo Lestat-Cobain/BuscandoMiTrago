@@ -6,11 +6,11 @@ using System.Diagnostics;
 using BuscandoMiTrago.AccesoDatos.Repository;
 using Org.BouncyCastle.Crypto;
 using AutoMapper;
-using BuscandoMiTragoDataAccess.Models;
 using Newtonsoft.Json;
 using BuscandoMiTrago.Model;
 using System.Linq;
 using BuscandoMiTrago.Utilidades;
+using BuscandoMiTrago.AccesoDatos.Models;
 
 namespace BuscandoMiTrago.Controllers
 {
@@ -80,17 +80,8 @@ namespace BuscandoMiTrago.Controllers
         [HttpGet]
         public async Task<IActionResult> GetFavorites(int id)
         {
-            DrinksModel drinksList = new DrinksModel();
-            var idBebidas = _contenedorTrabajo.Bebida.GetAll(x => x.IdSolicitud == 1241, x => x.OrderBy(x => x.Id), null);
-            foreach (var item in idBebidas)
-            {
-                DrinksModel bebida = new DrinksModel();
-                var request = _contenedorTrabajo.Bebida.RunRequest(_configuration.GetSection("GlobalParams:UrlObtenerDetalleBebida").Value + item.IdBebidas, "GET", null, null);
-
-                bebida = JsonConvert.DeserializeObject<DrinksModel>(request.Response);
-                drinksList.drinks.Add(bebida.drinks[0]);
-            }
-            return Ok(drinksList);
+            ModelResponse response = _contenedorTrabajo.Bebida.ObtenerBebidas();
+            return Ok(response);
         }
     }
 }

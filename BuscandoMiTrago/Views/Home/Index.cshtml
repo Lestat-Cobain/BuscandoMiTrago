@@ -235,12 +235,12 @@
                 type: 'GET',
                 data: 'id=' + '1241',
                 success: function (objMsj) {
-                    if (objMsj.drinks.length != 0) {
+                    if (objMsj.drinksModel.drinks != 0) {
                         $("#modalLoading").attr("style", "display:none")
                         $("#Cards").attr("style", "display")
                         $("#CardDetail").attr("style", "display:none")
                         var row = "";
-                        $.each(objMsj.drinks, function (index, item) {
+                        $.each(objMsj.drinksModel.drinks, function (index, item) {
                             //row += "<tr><td><input type='checkbox'id='" + item.Id + "' name='chooseRecipient' class='my_chkBox' /></td><td>" + item.Name + "</td><td>" + item.MobileNumber + "</td></tr>";
                             row += '<div  class="col-12 col-sm-12 col-md-4 col-lg-3 col-xl-3">' +
                                 '<div class="card h-100" "style ="width: 18rem;">' +

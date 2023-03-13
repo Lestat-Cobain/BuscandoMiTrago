@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BuscandoMiTrago.AccesoDatos.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,5 +12,6 @@ namespace BuscandoMiTrago.Utilidades
         public int Code { get; set; }
         public string? Comments { get; set; }
         public string? Response { get; set; }
+        public DrinksModel DrinksModel { get; set; }
     }
 }

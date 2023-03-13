@@ -1,11 +1,14 @@
 C:\Users\user\source\repos\BuscandoMiTrago\BuscandoMiTragoUtilidades\bin\Debug\net7.0\BuscandoMiTrago.Utilidades.deps.json
 C:\Users\user\source\repos\BuscandoMiTrago\BuscandoMiTragoUtilidades\bin\Debug\net7.0\BuscandoMiTrago.Utilidades.dll
 C:\Users\user\source\repos\BuscandoMiTrago\BuscandoMiTragoUtilidades\bin\Debug\net7.0\BuscandoMiTrago.Utilidades.pdb
+C:\Users\user\source\repos\BuscandoMiTrago\BuscandoMiTragoUtilidades\bin\Debug\net7.0\BuscandoMiTrago.Model.dll
+C:\Users\user\source\repos\BuscandoMiTrago\BuscandoMiTragoUtilidades\bin\Debug\net7.0\BuscandoMiTrago.Model.pdb
 C:\Users\user\source\repos\BuscandoMiTrago\BuscandoMiTragoUtilidades\obj\Debug\net7.0\BuscandoMiTrago.Utilidades.csproj.AssemblyReference.cache
 C:\Users\user\source\repos\BuscandoMiTrago\BuscandoMiTragoUtilidades\obj\Debug\net7.0\BuscandoMiTrago.Utilidades.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\user\source\repos\BuscandoMiTrago\BuscandoMiTragoUtilidades\obj\Debug\net7.0\BuscandoMiTrago.Utilidades.AssemblyInfoInputs.cache
 C:\Users\user\source\repos\BuscandoMiTrago\BuscandoMiTragoUtilidades\obj\Debug\net7.0\BuscandoMiTrago.Utilidades.AssemblyInfo.cs
 C:\Users\user\source\repos\BuscandoMiTrago\BuscandoMiTragoUtilidades\obj\Debug\net7.0\BuscandoMiTrago.Utilidades.csproj.CoreCompileInputs.cache
+C:\Users\user\source\repos\BuscandoMiTrago\BuscandoMiTragoUtilidades\obj\Debug\net7.0\BuscandoMiTrago.Utilidades.csproj.CopyComplete
 C:\Users\user\source\repos\BuscandoMiTrago\BuscandoMiTragoUtilidades\obj\Debug\net7.0\BuscandoMiTrago.Utilidades.dll
 C:\Users\user\source\repos\BuscandoMiTrago\BuscandoMiTragoUtilidades\obj\Debug\net7.0\refint\BuscandoMiTrago.Utilidades.dll
 C:\Users\user\source\repos\BuscandoMiTrago\BuscandoMiTragoUtilidades\obj\Debug\net7.0\BuscandoMiTrago.Utilidades.pdb

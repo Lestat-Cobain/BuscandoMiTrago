@@ -198,7 +198,11 @@
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\user\\source\\repos\\BuscandoMiTrago\\BuscandoMiTrago.Model\\BuscandoMiTrago.Model.csproj": {
+                "projectPath": "C:\\Users\\user\\source\\repos\\BuscandoMiTrago\\BuscandoMiTrago.Model\\BuscandoMiTrago.Model.csproj"
+              }
+            }
           }
         },
         "warningProperties": {

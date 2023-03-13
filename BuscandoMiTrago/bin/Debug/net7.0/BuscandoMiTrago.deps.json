@@ -922,6 +922,9 @@
         }
       },
       "BuscandoMiTrago.Utilidades/1.0.0": {
+        "dependencies": {
+          "BuscandoMiTrago.Model": "1.0.0"
+        },
         "runtime": {
           "BuscandoMiTrago.Utilidades.dll": {}
         }
