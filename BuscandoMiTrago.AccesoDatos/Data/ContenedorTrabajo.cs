@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BuscandoMiTrago.AccesoDatos.Repository;
+﻿using BuscandoMiTrago.AccesoDatos.Repository;
 using Microsoft.Extensions.Configuration;
 
 namespace BuscandoMiTrago.AccesoDatos.Data
