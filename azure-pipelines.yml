@@ -39,36 +39,18 @@ steps:
           New-Item -Path "$(deployPath)" -ItemType Directory -Force
       }
 
-      # Unzip the new deployment package
-      Expand-Archive -Path "$(Build.ArtifactStagingDirectory)\WebApp.zip" -DestinationPath "$(deployPath)" -Force
-
-      # Start the IIS Site
-      Start-WebSite -Name "BuscandoMiTrago"
-
-- task: PowerShell@2
-  displayName: 'Deploy to IIS'
-  inputs:
-    targetType: 'inline'
-    script: |
-      # Stop the IIS Site before deploying
-      Stop-WebSite -Name "BuscandoMiTrago"
-
-      # Ensure the deploy folder exists
-      if (Test-Path "$(deployPath)") {
-          Remove-Item -Path "$(deployPath)\*" -Recurse -Force
-      } else {
-          New-Item -Path "$(deployPath)" -ItemType Directory -Force
-      }
-
       # Extract files correctly from the ZIP
-      Expand-Archive -Path "$(Build.ArtifactStagingDirectory)\WebApp.zip" -DestinationPath "$(deployPath)" -Force
+      Expand-Archive -Path "$(Build.ArtifactStagingDirectory)\WebApp.zip" -DestinationPath "$(deployPath)-temp" -Force
 
-      # Fix deployment path (move files up if needed)
-      $innerFolder = Get-ChildItem -Path "$(deployPath)" | Where-Object { $_.PSIsContainer } | Select-Object -ExpandProperty FullName
-      if ($innerFolder) {
-          Move-Item -Path "$innerFolder\*" -Destination "$(deployPath)" -Force
-          Remove-Item -Path "$innerFolder" -Recurse -Force
+      # Find the actual deployed folder inside the extracted directory
+      $extractedFolder = Get-ChildItem -Path "$(deployPath)-temp" | Where-Object { $_.PSIsContainer } | Select-Object -ExpandProperty FullName
+
+      # Move all files to the correct deployment path
+      if ($extractedFolder) {
+          Move-Item -Path "$extractedFolder\*" -Destination "$(deployPath)" -Force
+          Remove-Item -Path "$(deployPath)-temp" -Recurse -Force
       }
 
       # Start the IIS Site
       Start-WebSite -Name "BuscandoMiTrago"
+
