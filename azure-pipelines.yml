@@ -39,22 +39,34 @@ steps:
           New-Item -Path "$(deployPath)" -ItemType Directory -Force
       }
       
-      Write-Host "Extracting WebApp.zip to temporary folder..."
+      # Define temporary extraction folder
       $tempDeployPath = "$(deployPath)-temp"
       if (Test-Path $tempDeployPath) { Remove-Item $tempDeployPath -Recurse -Force }
+      
+      Write-Host "Extracting WebApp.zip to temporary folder: $tempDeployPath"
       Expand-Archive -Path "$(Build.ArtifactStagingDirectory)\WebApp.zip" -DestinationPath $tempDeployPath -Force
       
-      Write-Host "Looking for the root folder 'WebApp' inside the temporary folder..."
-      $innerFolder = Join-Path $tempDeployPath "WebApp"
-      if (Test-Path $innerFolder) {
-          Write-Host "Found inner folder: $innerFolder"
-          Write-Host "Moving contents to deploy path: $(deployPath)"
+      Write-Host "Listing contents of temporary folder:"
+      Get-ChildItem -Path $tempDeployPath -Recurse | ForEach-Object { Write-Host $_.FullName }
+      
+      # Get all items in the temporary folder
+      $items = Get-ChildItem -Path $tempDeployPath
+      
+      if (($items | Where-Object { $_.PSIsContainer }).Count -eq 1 -and $items.Count -eq 1) {
+          # Only one folder exists, assume that's the container folder
+          $innerFolder = $items[0].FullName
+          Write-Host "Found single container folder: $innerFolder"
+          Write-Host "Moving contents from $innerFolder to $(deployPath)"
           Move-Item -Path "$innerFolder\*" -Destination "$(deployPath)" -Force
-          Remove-Item -Path $tempDeployPath -Recurse -Force
       }
       else {
-          Write-Error "Folder 'WebApp' not found in extracted package. Check the ZIP structure."
+          Write-Host "Moving all contents from $tempDeployPath to $(deployPath)"
+          Move-Item -Path "$tempDeployPath\*" -Destination "$(deployPath)" -Force
       }
+      
+      Write-Host "Removing temporary folder..."
+      Remove-Item -Path $tempDeployPath -Recurse -Force
       
       Write-Host "Starting IIS Site..."
       Start-WebSite -Name "BuscandoMiTrago"
+
