@@ -1,3 +1,50 @@
+trigger:
+- master
+
+pool:
+  name: 'default'
+
+variables:
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+  deployPath: 'C:\inetpub\wwwroot\BuscandoMiTrago' # Set your IIS deployment path
+
+steps:
+- task: NuGetToolInstaller@1
+
+- task: NuGetCommand@2
+  inputs:
+    restoreSolution: '$(solution)'
+
+- task: VSBuild@1
+  inputs:
+    solution: '$(solution)'
+    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(Build.ArtifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
+
+- task: PowerShell@2
+  displayName: 'Deploy to IIS'
+  inputs:
+    targetType: 'inline'
+    script: |
+      # Stop the IIS Site before deploying
+      Stop-WebSite -Name "BuscandoMiTrago"
+
+      # Ensure the deploy folder exists
+      if (Test-Path "$(deployPath)") {
+          Remove-Item -Path "$(deployPath)\*" -Recurse -Force
+      } else {
+          New-Item -Path "$(deployPath)" -ItemType Directory -Force
+      }
+
+      # Unzip the new deployment package
+      Expand-Archive -Path "$(Build.ArtifactStagingDirectory)\WebApp.zip" -DestinationPath "$(deployPath)" -Force
+
+      # Start the IIS Site
+      Start-WebSite -Name "BuscandoMiTrago"
+
 - task: PowerShell@2
   displayName: 'Deploy to IIS'
   inputs:
