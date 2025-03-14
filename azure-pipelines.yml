@@ -5,24 +5,31 @@ pool:
   name: 'default'
 
 variables:
-  solution: '**/*.sln'
-  buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
-  deployPath: 'C:\inetpub\wwwroot\BuscandoMiTrago' # Set your IIS deployment path
+  deployPath: 'C:\inetpub\wwwroot\BuscandoMiTrago' # Your IIS deployment path
 
 steps:
-- task: NuGetToolInstaller@1
-
-- task: NuGetCommand@2
+- task: DotNetCoreCLI@2
+  displayName: 'Restore'
   inputs:
-    restoreSolution: '$(solution)'
+    command: 'restore'
+    projects: '**/*.csproj'
 
-- task: VSBuild@1
+- task: DotNetCoreCLI@2
+  displayName: 'Publish'
   inputs:
-    solution: '$(solution)'
-    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(Build.ArtifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+    command: 'publish'
+    publishWebProjects: true
+    arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)\publish'
+    zipAfterPublish: false
+
+- task: ArchiveFiles@2
+  displayName: 'Create Deployment ZIP'
+  inputs:
+    rootFolderOrFile: '$(Build.ArtifactStagingDirectory)\publish'
+    includeRootFolder: false
+    archiveFile: '$(Build.ArtifactStagingDirectory)\WebApp.zip'
+    replaceExistingArchive: true
 
 - task: PowerShell@2
   displayName: 'Deploy to IIS'
@@ -39,34 +46,8 @@ steps:
           New-Item -Path "$(deployPath)" -ItemType Directory -Force
       }
       
-      # Define temporary extraction folder
-      $tempDeployPath = "$(deployPath)-temp"
-      if (Test-Path $tempDeployPath) { Remove-Item $tempDeployPath -Recurse -Force }
-      
-      Write-Host "Extracting WebApp.zip to temporary folder: $tempDeployPath"
-      Expand-Archive -Path "$(Build.ArtifactStagingDirectory)\WebApp.zip" -DestinationPath $tempDeployPath -Force
-      
-      Write-Host "Listing contents of temporary folder:"
-      Get-ChildItem -Path $tempDeployPath -Recurse | ForEach-Object { Write-Host $_.FullName }
-      
-      # Get all items in the temporary folder
-      $items = Get-ChildItem -Path $tempDeployPath
-      
-      if (($items | Where-Object { $_.PSIsContainer }).Count -eq 1 -and $items.Count -eq 1) {
-          # Only one folder exists, assume that's the container folder
-          $innerFolder = $items[0].FullName
-          Write-Host "Found single container folder: $innerFolder"
-          Write-Host "Moving contents from $innerFolder to $(deployPath)"
-          Move-Item -Path "$innerFolder\*" -Destination "$(deployPath)" -Force
-      }
-      else {
-          Write-Host "Moving all contents from $tempDeployPath to $(deployPath)"
-          Move-Item -Path "$tempDeployPath\*" -Destination "$(deployPath)" -Force
-      }
-      
-      Write-Host "Removing temporary folder..."
-      Remove-Item -Path $tempDeployPath -Recurse -Force
+      Write-Host "Extracting WebApp.zip to deploy folder..."
+      Expand-Archive -Path "$(Build.ArtifactStagingDirectory)\WebApp.zip" -DestinationPath "$(deployPath)" -Force
       
       Write-Host "Starting IIS Site..."
       Start-WebSite -Name "BuscandoMiTrago"
-
